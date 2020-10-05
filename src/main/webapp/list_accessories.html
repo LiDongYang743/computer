@@ -8,7 +8,7 @@
 <script>
 
     $(function () {
-        $.get("/computer/list_accessories", {}, function (data) {
+        $.get("/computer/saveCcessories?action=list", {}, function (data) {
             for (let i = 0; i < data.length; i++) {
                 // alert(data[i].computerType.typeId);
                 $("#tableData").append(' <tr>\n' +

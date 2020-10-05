@@ -80,7 +80,7 @@
             $("#savePjForm").submit(function () {
                 //判断验证是否通过 ，在通过ajax异步提交数据
                 if (funcomponentName() && funtypeId() && funprice()) {
-                    $.post("/computer/saveCcessories", $(this).serialize(), function (data) {
+                    $.post("/computer/saveCcessories?action=save", $(this).serialize(), function (data) {
                         if (data.code == 200) {
                             location.href = "list_accessories.html";
                         } else {

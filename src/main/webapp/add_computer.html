@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加电脑</title>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script>
+        // 查询配置类数据
+        $(function () {
+            $.get("/computer/computer?action=listAccessories", {}, function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].typeId == 1) {
+                        // alert( data[i].componentId);
+                        $("#cpu").append("<option  value='" + data[i].componentId + "'>" + data[i].componentName + "</option>");
+                    }
+                    if (data[i].typeId == 2) {
+                        $("#memory").append("<option  value='" + data[i].componentId+ "'>" + data[i].componentName + "</option>");
+                    }
+                    if (data[i].typeId == 3) {
+                        $("#hdd").append("<option  value='" +data[i].componentId+ "'>" + data[i].componentName + "</option>");
+                    }
+                    if (data[i].typeId == 4) {
+                        $("#videocard").append("<option  value='" +data[i].componentId+ "'>" + data[i].componentName + "</option>");
+                    }
+                    if (data[i].typeId == 5) {
+                        $("#display").append("<option  value='" +data[i].componentId + "'>" + data[i].componentName + "</option>");
+                    }
+                }
+            });
+        })
+
+        //函数加载完成事件
+        $(function () {
+            //表单提交事件
+            $("#savePjForm").submit(function () {
+                let value = $("#cpu  option:selected").val();
+                alert(cpu);
+                $.post("/computer/computer?action=save", $(this).serialize(), function (data) {
+                    if (data.code == 200) {
+                        location.href = "list_computer.html";
+                    } else {
+                        $("#msgError").html(data.message);
+                        alert(data.message);
+                    }
+                }, "json");
+                return false;
+            });
+
+        })
+
+    </script>
+</head>
+<body>
+<form method="post" id="savePjForm" action="*">
+    <table align="center">
+        <tr>
+            <td>
+                <input type="hidden" id="msgError">
+            </td>
+        </tr>
+        <tr>
+            <th> 电脑型号：</th>
+            <td><input type="text" name="computerName" id="computerName"></td>
+        </tr>
+        <tr>
+            <th>cpu：</th>
+            <td>
+                <select  name="cpu" id="cpu"  >
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>内存：</th>
+            <td>
+                <select id="memory" name="memory">
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>硬盘：</th>
+            <td>
+                <select   name="hdd" id="hdd" >
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>显卡：</th>
+            <td>
+                <select   name="videocard" id="videocard" >
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>显示器：</th>
+            <td>
+                <select name="display" id="display" >
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>价格：</th>
+            <td><input type="text" id="price" name="price"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="提交"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
