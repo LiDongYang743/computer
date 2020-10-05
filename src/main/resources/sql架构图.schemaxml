@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8mb4" collation="utf8mb4_0900_ai_ci">computer</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="computer_accessories" view="colnames">
+<left>314</left>
+<top>109</top>
+<width>151</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `computer_accessories` (
+  `component_id` int NOT NULL AUTO_INCREMENT COMMENT '配件编号',
+  `Type_id` int NOT NULL COMMENT '类型编号',
+  `Component_name` varchar(200) COLLATE utf8_bin DEFAULT NULL COMMENT '配件说明',
+  `capacity` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '容量',
+  `price` int DEFAULT '0' COMMENT '价格',
+  PRIMARY KEY (`component_id`),
+  KEY `fk_type` (`Type_id`),
+  CONSTRAINT `fk_type` FOREIGN KEY (`Type_id`) REFERENCES `computer_type` (`Type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='computer_accessories'</sql_create_table>
+</table>
+<table name="computer_type" view="colnames">
+<left>36</left>
+<top>131</top>
+<width>103</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `computer_type` (
+  `Type_id` int NOT NULL AUTO_INCREMENT COMMENT '类型编号',
+  `typename` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '类型名称',
+  PRIMARY KEY (`Type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='computer_type'</sql_create_table>
+</table>
+<table name="coumpetrs" view="colnames">
+<left>942</left>
+<top>50</top>
+<width>144</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `coumpetrs` (
+  `coumpetrs_id` int NOT NULL AUTO_INCREMENT COMMENT '电脑编号',
+  `Computer_name` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '名称',
+  `MEMORY` int DEFAULT '0' COMMENT '内存',
+  `cpu` int DEFAULT '0' COMMENT 'CPU',
+  `videocard` int DEFAULT '0' COMMENT '显卡',
+  `display` int DEFAULT '0' COMMENT '显示器',
+  `hdd` int DEFAULT '0' COMMENT '硬盘',
+  `price` int DEFAULT '0' COMMENT '价格',
+  PRIMARY KEY (`coumpetrs_id`),
+  UNIQUE KEY `MEMORY` (`MEMORY`),
+  UNIQUE KEY `cpu` (`cpu`),
+  UNIQUE KEY `videocard` (`videocard`),
+  UNIQUE KEY `display` (`display`),
+  UNIQUE KEY `hdd` (`hdd`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='computer_accessories'</sql_create_table>
+</table>
+<table name="computer_accessories_coumpetrs_hdd" view="colnames">
+<left>626</left>
+<top>462</top>
+<width>122</width>
+<height>111</height>
+<sql_create_table>CREATE TABLE `computer_accessories_coumpetrs_hdd` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `hdd` int NOT NULL,
+  `component_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk9` (`hdd`),
+  KEY `fk10` (`component_id`),
+  CONSTRAINT `fk10` FOREIGN KEY (`component_id`) REFERENCES `computer_accessories` (`component_id`),
+  CONSTRAINT `fk9` FOREIGN KEY (`hdd`) REFERENCES `coumpetrs` (`hdd`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="computer_accessories_coumpetrs_momory" view="colnames">
+<left>622</left>
+<top>-1</top>
+<width>133</width>
+<height>115</height>
+<sql_create_table>CREATE TABLE `computer_accessories_coumpetrs_momory` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `MEMORY` int NOT NULL,
+  `component_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk1` (`MEMORY`),
+  KEY `fk2` (`component_id`),
+  CONSTRAINT `fk1` FOREIGN KEY (`MEMORY`) REFERENCES `coumpetrs` (`MEMORY`),
+  CONSTRAINT `fk2` FOREIGN KEY (`component_id`) REFERENCES `computer_accessories` (`component_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="computer_accessories_coumpetrs_cpu" view="colnames">
+<left>623</left>
+<top>113</top>
+<width>126</width>
+<height>116</height>
+<sql_create_table>CREATE TABLE `computer_accessories_coumpetrs_cpu` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cpu` int NOT NULL,
+  `component_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk3` (`cpu`),
+  KEY `fk4` (`component_id`),
+  CONSTRAINT `fk3` FOREIGN KEY (`cpu`) REFERENCES `coumpetrs` (`cpu`),
+  CONSTRAINT `fk4` FOREIGN KEY (`component_id`) REFERENCES `computer_accessories` (`component_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="computer_accessories_coumpetrs_videocard" view="colnames">
+<left>622</left>
+<top>226</top>
+<width>126</width>
+<height>113</height>
+<sql_create_table>CREATE TABLE `computer_accessories_coumpetrs_videocard` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `videocard` int NOT NULL,
+  `component_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk5` (`videocard`),
+  KEY `fk6` (`component_id`),
+  CONSTRAINT `fk5` FOREIGN KEY (`videocard`) REFERENCES `coumpetrs` (`videocard`),
+  CONSTRAINT `fk6` FOREIGN KEY (`component_id`) REFERENCES `computer_accessories` (`component_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+<table name="computer_accessories_coumpetrs_display" view="colnames">
+<left>625</left>
+<top>345</top>
+<width>126</width>
+<height>120</height>
+<sql_create_table>CREATE TABLE `computer_accessories_coumpetrs_display` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `display` int NOT NULL,
+  `component_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk7` (`display`),
+  KEY `fk8` (`component_id`),
+  CONSTRAINT `fk7` FOREIGN KEY (`display`) REFERENCES `coumpetrs` (`display`),
+  CONSTRAINT `fk8` FOREIGN KEY (`component_id`) REFERENCES `computer_accessories` (`component_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

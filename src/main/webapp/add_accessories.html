@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加配件</title>
+    <script src="js/jquery-3.2.1.js"></script>
+    <script>
+        // 查询分类数据
+        $(function () {
+            $.get("/computer/type", {}, function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    $("#select").append("<option id='option' value='" + data[i].typeId + "'>" + data[i].typename + "</option>");
+                }
+            });
+        })
+
+        //判断类型是否是存储类
+        function funoption() {
+            let value = $("#select  option:selected").val();
+            $("#trcapacity").empty();
+            if (value == 2 || value == 3) {
+                $("#trcapacity").append("" +
+                    " <th>配件容量：</th>" +
+                    "\n" + "<td> <input type=\"text\" id='capacity' name=\"capacity\" />G</td>");
+            }
+        }
+
+
+        //    非空判断
+        function funcomponentName() {
+            var componentName = $("#componentName").val();
+            if (componentName == null || componentName.length == 0) {
+                $("#componentName").css("border", "1px solid red");
+                return false;
+            } else {
+                $("#componentName").css("border", "1px solid black");
+                return true;
+            }
+        };
+
+        //    非空判断
+        function funtypeId() {
+            var select = $("#select").val();
+            if (select == null || select.length == 0) {
+                $("#select").css("border", "1px solid red");
+                return false;
+            } else {
+                $("#select").css("border", "1px solid black");
+                return true;
+            }
+        };
+
+        //    非空判断
+        function funprice() {
+            var price = $("#price").val();
+            if (price == null || price.length == 0) {
+                $("#price").css("border", "1px solid red");
+                return false;
+            } else {
+                $("#price").css("border", "1px solid black");
+                return true;
+            }
+        };
+
+        //    非空判断
+        function funcapacity() {
+            var capacity = $("#capacity").val();
+            if (capacity == null || capacity.length == 0) {
+                $("#capacity").css("border", "1px solid red");
+                return false;
+            } else {
+                //根据容量来定价格
+                let capacity=$("#capacity").val();
+                //获取分类的类型
+                let value = $("#select  option:selected").val();
+
+                // 判断是硬盘
+                if (value==2){
+                    if (capacity<=200){
+                        let price = $("#price").val(200);
+                        alert(price);
+                    }
+                    if (capacity>200){
+                        let price = $("#price").val(capacity*1.2);
+                        alert(price);
+                    }
+                }
+                //判断是内存
+                if (value==3){
+                    if (capacity<=200){
+                        let price = $("#price").val(200);
+                        alert(price);
+                    }
+                    if (capacity>200){
+                        let price = $("#price").val(capacity*1.2);
+                        alert(price);
+                    }
+                }
+                $("#capacity").css("border", "1px solid black");
+                return true;
+            }
+        };
+
+        //函数加载完成事件
+        $(function () {
+            //表单提交事件
+            $("#savePjForm").submit(function () {
+                //判断验证是否通过 ，在通过ajax异步提交数据
+                if (funcomponentName() && funtypeId() && funprice()) {
+                    $.post("/computer/saveCcessories", $(this).serialize(), function (data) {
+                        if (data.code == 200) {
+                            location.href = "list_accessories.html";
+                        } else {
+                            $("#msgError").html(data.message);
+                            alert(data.message);
+                        }
+                    }, "json");
+                }
+                return false;
+            });
+
+            $("#componentName").blur(funcomponentName());
+            $("#select").blur(funtypeId());
+            $("#capacity").blur(funcapacity());
+            $("#price").blur(funprice());
+        })
+
+    </script>
+</head>
+<body>
+<form method="post" id="savePjForm" action="*">
+    <table align="center">
+        <tr>
+            <td>
+                <input type="hidden" id="msgError">
+            </td>
+        </tr>
+        <tr>
+            <th> 配件名称：</th>
+            <td><input type="text" name="componentName" id="componentName"></td>
+        </tr>
+        <tr>
+            <th>配件类型：</th>
+            <td>
+                <select id="select" onchange="funoption()" name="computerType.typeId">
+
+                </select>
+            </td>
+        </tr>
+        <tr id="trcapacity">
+            <!--            <input type="text" name="capacity" />-->
+        </tr>
+        <tr>
+            <th>配件价格：</th>
+            <td><input type="text" id="price" name="price"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="提交"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

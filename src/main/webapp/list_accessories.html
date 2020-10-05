@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>遍历配件</title>
+</head>
+<script src="js/jquery-3.2.1.js"></script>
+<script>
+
+    $(function () {
+        $.get("/computer/list_accessories", {}, function (data) {
+            for (let i = 0; i < data.length; i++) {
+                // alert(data[i].computerType.typeId);
+                $("#tableData").append(' <tr>\n' +
+                    '        <td>data[i].componentId</td>\n' +
+                    '        <td>data[i].typeId</td>\n' +
+                    '        <td>data[i].componentName</td>\n' +
+                    '        <td>data[i].capacity</td>\n' +
+                    '        <td>data[i].price</td>\n' +
+                    '    </tr>');
+            }
+        })
+    })
+
+</script>
+
+<body>
+<table border="1" id="tableData">
+    <tr>
+        <th>序号</th>
+        <th>配件名称</th>
+        <th>配件类型</th>
+        <th>容量</th>
+        <th>价格</th>
+    </tr>
+</table>
+</body>
+</html>
