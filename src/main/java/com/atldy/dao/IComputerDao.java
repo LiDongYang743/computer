@@ -6,6 +6,7 @@ import com.atldy.domain.Coumpetrs;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 唐多山
@@ -73,4 +74,8 @@ public interface IComputerDao {
      * @return
      */
     ComputerType findTypeById(Integer typeId);
+
+
+     List<Map<String, Object>> findAllAccessoriesMap();
+
 }

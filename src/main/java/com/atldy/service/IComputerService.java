@@ -5,6 +5,7 @@ import com.atldy.domain.ComputerType;
 import com.atldy.domain.Coumpetrs;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 唐多山
@@ -21,7 +22,7 @@ public interface IComputerService {
     /**
      * 添加电脑配件
      */
-    void saveAccessories(ComputerAccessories accessories,Integer typeId);
+    void saveAccessories(ComputerAccessories accessories);
 
     /**
      * 查询电脑配置列表
@@ -56,5 +57,7 @@ public interface IComputerService {
      * @return
      */
     Coumpetrs findCoumpetrsByid(Integer id);
+
+     List<Map<String, Object>> findAllAccessoriesMap();
 
 }

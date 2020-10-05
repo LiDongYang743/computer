@@ -12,11 +12,11 @@
             for (let i = 0; i < data.length; i++) {
                 // alert(data[i].computerType.typeId);
                 $("#tableData").append(' <tr>\n' +
-                    '        <td>data[i].componentId</td>\n' +
-                    '        <td>data[i].typeId</td>\n' +
-                    '        <td>data[i].componentName</td>\n' +
-                    '        <td>data[i].capacity</td>\n' +
-                    '        <td>data[i].price</td>\n' +
+                    '        <td>'+data[i].component_id+'</td>\n' +
+                    '        <td>'+data[i].Component_name+'</td>\n' +
+                    '        <td>'+data[i].typename+'</td>\n' +
+                    '        <td>'+data[i].capacity+'</td>\n' +
+                    '        <td>'+data[i].price+'</td>\n' +
                     '    </tr>');
             }
         })

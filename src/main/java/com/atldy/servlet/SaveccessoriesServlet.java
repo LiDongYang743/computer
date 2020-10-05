@@ -33,13 +33,12 @@ public class SaveccessoriesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        获取表单提交的数据
         Map<String, String[]> parameterMap = request.getParameterMap();
-        Integer typeId =Integer.parseInt(request.getParameter("computerType.typeId"));
 
         ComputerAccessories computerAccessories = new ComputerAccessories();
         try {
             BeanUtils.populate(computerAccessories, parameterMap);
             System.out.println("computerAccessories = " + computerAccessories);
-            computerService.saveAccessories(computerAccessories,typeId);
+            computerService.saveAccessories(computerAccessories);
             CommonResult commonResult = new CommonResult(200,"添加配件失败--->o(╥﹏╥)o");
             ObjectMapper mapper=new ObjectMapper();
             response.setContentType("application/json;charset=utf-8");

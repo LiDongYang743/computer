@@ -19,5 +19,5 @@ public class ComputerAccessories implements Serializable {
     private String  componentName;
     private String  capacity;
     private Integer price;
-    private ComputerType computerType;
+    private Integer typeId;
 }

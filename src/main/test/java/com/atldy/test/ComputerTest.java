@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 唐多山
@@ -51,10 +52,10 @@ public class ComputerTest {
     @Test
     public void testsaveAconsie() {
         ComputerAccessories accessories = new ComputerAccessories();
-        accessories.setComponentName("神州闪电cpu");
+        accessories.setTypeId(1);
         accessories.setCapacity(null);
         accessories.setPrice(633);
-        computerService.saveAccessories(accessories,1);
+        computerService.saveAccessories(accessories);
     }
 
     @Test
@@ -119,6 +120,11 @@ public class ComputerTest {
 //            sum=sum+accessory.getPrice();
 //        }
 //        System.out.println("sum = " + sum);
+    }
+    @Test
+    public void test(){
+        List<Map<String, Object>> allAccessoriesMap = computerDao.findAllAccessoriesMap();
+        System.out.println("allAccessoriesMap = " + allAccessoriesMap);
     }
 
 }

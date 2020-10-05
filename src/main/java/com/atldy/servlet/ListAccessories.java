@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 唐多山
@@ -28,7 +29,8 @@ public class ListAccessories extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //查询全部配件
-        List<ComputerAccessories> allAccessories = computerService.findAllAccessories();
+        List<Map<String, Object>> allAccessories = computerService.findAllAccessoriesMap();
+        System.out.println("allAccessories = " + allAccessories);
         //序列化json
         ObjectMapper mapper = new ObjectMapper();
         //把返回数据写到前台

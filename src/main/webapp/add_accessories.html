@@ -36,7 +36,7 @@
                 $("#componentName").css("border", "1px solid black");
                 return true;
             }
-        };
+        }
 
         //    非空判断
         function funtypeId() {
@@ -69,33 +69,6 @@
                 $("#capacity").css("border", "1px solid red");
                 return false;
             } else {
-                //根据容量来定价格
-                let capacity=$("#capacity").val();
-                //获取分类的类型
-                let value = $("#select  option:selected").val();
-
-                // 判断是硬盘
-                if (value==2){
-                    if (capacity<=200){
-                        let price = $("#price").val(200);
-                        alert(price);
-                    }
-                    if (capacity>200){
-                        let price = $("#price").val(capacity*1.2);
-                        alert(price);
-                    }
-                }
-                //判断是内存
-                if (value==3){
-                    if (capacity<=200){
-                        let price = $("#price").val(200);
-                        alert(price);
-                    }
-                    if (capacity>200){
-                        let price = $("#price").val(capacity*1.2);
-                        alert(price);
-                    }
-                }
                 $("#capacity").css("border", "1px solid black");
                 return true;
             }
@@ -119,10 +92,72 @@
                 return false;
             });
 
-            $("#componentName").blur(funcomponentName());
-            $("#select").blur(funtypeId());
-            $("#capacity").blur(funcapacity());
-            $("#price").blur(funprice());
+            // $("#componentName").blur(funcomponentName());
+            // $("#select").blur(funtypeId());
+            // $("#capacity").blur(funcapacity());
+            // $("#price").blur(funprice());
+
+            //绑定失去焦点事件
+            //用户名
+            $("#componentName").blur(function(){
+                //获取用户名的值
+                var name=$("#componentName").val();
+                //alert(username.length);
+                if (name.length==0||name==null) {
+                    //清空font元素
+                    $("#us").remove();
+                    $("#componentName").after("<font color='red' size='3' id='us'>不能为空</font>")
+                }else{
+                    $("#us").remove();
+
+                }
+            })
+
+            //绑定失去焦点事件
+            //用户名
+            $("#select").blur(function(){
+                //获取用户名的值
+                var name=$("#select").val();
+                //alert(username.length);
+                if (name.length==0||name==null) {
+                    //清空font元素
+                    $("#us").remove();
+                    $("#select").after("<font color='red' size='3' id='us'>不能为空</font>")
+                }else{
+                    $("#us").remove();
+                }
+            })
+
+            //绑定失去焦点事件
+            //用户名
+            $("#capacity").blur(function(){
+                //获取用户名的值
+                var name=$("#capacity").val();
+                //alert(username.length);
+                if (name.length==0||name==null) {
+                    //清空font元素
+                    $("#us").remove();
+                    $("#capacity").after("<font color='red' size='3' id='us'>不能为空</font>")
+                }else{
+                    $("#us").remove();
+                }
+            })
+
+            //绑定失去焦点事件
+            //用户名
+            $("#price").blur(function(){
+                //获取用户名的值
+                var name=$("#price").val();
+                //alert(username.length);
+                if (name.length==0||name==null) {
+                    //清空font元素
+                    $("#us").remove();
+                    $("#price").after("<font color='red' size='3' id='us'>不能为空</font>")
+                }else{
+                    $("#us").remove();
+                }
+            })
+
         })
 
     </script>
@@ -142,7 +177,7 @@
         <tr>
             <th>配件类型：</th>
             <td>
-                <select id="select" onchange="funoption()" name="computerType.typeId">
+                <select id="select" onchange="funoption()" name="typeId">
 
                 </select>
             </td>

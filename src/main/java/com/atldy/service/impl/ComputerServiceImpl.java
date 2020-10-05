@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 唐多山
@@ -36,9 +37,7 @@ public class ComputerServiceImpl implements IComputerService {
      *
      * @param accessories
      */
-    public void saveAccessories(ComputerAccessories accessories,Integer typeId) {
-        ComputerType typeById = computerDao.findTypeById(typeId);
-        accessories.setComputerType(typeById);
+    public void saveAccessories(ComputerAccessories accessories) {
         computerDao.saveAccessories(accessories);
     }
 
@@ -100,6 +99,10 @@ public class ComputerServiceImpl implements IComputerService {
      */
     public Coumpetrs findCoumpetrsByid(Integer id) {
         return computerDao.findCoumpetrsByid(id);
+    }
+
+    public List<Map<String, Object>> findAllAccessoriesMap() {
+        return computerDao.findAllAccessoriesMap();
     }
 
 

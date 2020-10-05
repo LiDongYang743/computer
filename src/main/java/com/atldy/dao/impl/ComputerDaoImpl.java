@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 唐多山
@@ -38,7 +39,7 @@ public class ComputerDaoImpl implements IComputerDao {
      */
     public void saveAccessories(ComputerAccessories accessories) {
         jdbcTemplate.update("insert into computer_accessories(Type_id,Component_name,capacity,price) values (?,?,?,?)",
-                accessories.getComputerType().getTypeId(), accessories.getComponentName(), accessories.getCapacity(), accessories.getPrice());
+                accessories.getTypeId(), accessories.getComponentName(), accessories.getCapacity(), accessories.getPrice());
     }
 
     /**
@@ -47,7 +48,17 @@ public class ComputerDaoImpl implements IComputerDao {
      * @return
      */
     public List<ComputerAccessories> findAllAccessories() {
-        List<ComputerAccessories> query = jdbcTemplate.query("SELECT * FROM computer_accessories", new BeanPropertyRowMapper<ComputerAccessories>(ComputerAccessories.class));
+        List<ComputerAccessories> query = jdbcTemplate.query("SELECT  computer_accessories.*,computer_type.typename FROM computer_accessories,computer_type WHERE  computer_type.Type_id=computer_accessories.Type_id ", new BeanPropertyRowMapper<ComputerAccessories>(ComputerAccessories.class));
+        return query;
+    }
+
+    /**
+     * 查询电脑配置列表
+     *
+     * @return
+     */
+    public List<Map<String, Object>> findAllAccessoriesMap() {
+        List<Map<String, Object>> query = jdbcTemplate.queryForList("SELECT  computer_accessories.*,computer_type.typename FROM computer_accessories,computer_type WHERE  computer_type.Type_id=computer_accessories.Type_id ");
         return query;
     }
 
